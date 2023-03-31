@@ -1,44 +1,21 @@
 package com.csu.petstoreadmin.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-
+@Data
 @TableName("category")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 3992469837058393712L;//序列化id
 
-    private String categoryId;
+
+    private String catid;
     private String name;
-    private String description;
+    private String descn;
 
-    public String getCategoryId() {
-        return categoryId;
-    }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId.trim();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String toString() {
-        return getCategoryId();
-    }
 
 }

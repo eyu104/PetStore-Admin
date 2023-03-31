@@ -11,10 +11,13 @@ public class AddItemForm {
     private String category;
     private String name;
     private String describe;
+    private String describe2;
+    private int quantity;
     private int supplier;
     private String status;
     private BigDecimal price;
     private BigDecimal cost;
-    //图片暂定
+    //图片名称
+    private String fileName;
 
 }

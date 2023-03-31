@@ -34,11 +34,12 @@ mybatis-plus:
     map-underscore-to-camel-case: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.csu.petstoreadmin.pojo
+
 server:
   port: 9098
 
 
-swagger:
-  show: true
+#swagger:
+#  show: true
 
 
