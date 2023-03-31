@@ -1,0 +1,44 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mypetstore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123456
+
+  mail:
+    #smtp????  qq????smtp.qq.com;163???smtp.163.com
+    host: smtp.qq.com
+    #????
+    protocol: smtp
+    # ???
+    default-encoding: UTF-8
+    #???????
+    username: 1020705370@qq.com
+    #???
+    password: hwsxkblaldgnbcgj
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.csu.petstoreadmin.pojo
+server:
+  port: 9098
+
+
+swagger:
+  show: true
+
+
