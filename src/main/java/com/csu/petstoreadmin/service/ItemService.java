@@ -68,4 +68,16 @@ public class ItemService {
         System.out.println(itemPage);
         return itemPage;
     }
+
+    public boolean itemIsAlive(String itemid) {
+        Item item = itemMapper.selectById(itemid);
+        if (item != null){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
 }

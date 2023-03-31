@@ -43,6 +43,10 @@ public class ItemController {
         item.setSupplier(addItemForm.getSupplier());
         item.setAttr1(addItemForm.getDescribe2());
 
+        if (itemService.itemIsAlive(addItemForm.getCommodityId()) == false){
+            return Result.error("404","商品名已存在");
+        }
+
         Product product = new Product();
         product.setProductId(addItemForm.getProductId());
         product.setCategory(addItemForm.getCategory());

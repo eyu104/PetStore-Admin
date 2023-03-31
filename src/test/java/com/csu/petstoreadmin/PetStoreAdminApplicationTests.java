@@ -29,4 +29,9 @@ class PetStoreAdminApplicationTests {
         itemService.deleteItem("123");
     }
 
+    @Test
+    void test3() {
+        System.out.println(itemService.itemIsAlive("EST-1"));
+    }
+
 }
