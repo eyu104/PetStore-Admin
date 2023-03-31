@@ -54,4 +54,6 @@ public class SupplierController {
         supplierService.updateSup(supplier);
         return Result.success(supplierService.getSupByAccountName(supplier.getSupplierAccountName()));
     }
+
+
 }
