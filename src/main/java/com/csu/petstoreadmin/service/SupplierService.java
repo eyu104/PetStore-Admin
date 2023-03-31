@@ -1,5 +1,6 @@
 package com.csu.petstoreadmin.service;
 
+import com.csu.petstoreadmin.mapper.SupSignonMapper;
 import com.csu.petstoreadmin.mapper.SupplierMapper;
 import com.csu.petstoreadmin.pojo.SupSignon;
 import com.csu.petstoreadmin.pojo.Supplier;
@@ -17,6 +18,9 @@ public class SupplierService {
 
     @Resource
     private SupplierMapper supplierMapper;
+
+    @Resource
+    private SupSignonMapper supSignonMapper;
 
     public Supplier getSupByAccountNameAndPassword(String supplierAccountName, String password) {
         Supplier supplier = supplierMapper.selectJoinOne(Supplier.class, new MPJLambdaWrapper<Supplier>()
@@ -41,8 +45,26 @@ public class SupplierService {
                 );
         return supplier;
     }
-//
-//    public void updateSup(Supplier supplier);
-//
-//    public void addSup(Supplier supplier);
+
+    public void updateSup(Supplier supplier) {
+        supplierMapper.updateById(supplier);
+        SupSignon supSignon = new SupSignon();
+        supSignon.setEmail(supplier.getEmail());
+        supSignon.setSupplierAccountName(supplier.getSupplierAccountName());
+        supSignon.setPassword(supplier.getPassword());
+        supSignonMapper.updateById(supSignon);
+    }
+
+    public void addSup(Supplier supplier) {
+        supplierMapper.insert(supplier);
+        SupSignon supSignon = new SupSignon();
+        supSignon.setEmail(supplier.getEmail());
+        supSignon.setSupplierAccountName(supplier.getSupplierAccountName());
+        supSignon.setPassword(supplier.getPassword());
+        supSignonMapper.insert(supSignon);
+    }
+
+
+
+
 }
