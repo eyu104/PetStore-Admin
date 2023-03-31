@@ -39,7 +39,7 @@ server:
   port: 9098
 
 
-#swagger:
-#  show: true
+swagger:
+  show: true
 
 
