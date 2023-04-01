@@ -29,7 +29,7 @@ public interface OrderMapper extends MPJBaseMapper<Order> {
     void Shipment(int orderid,String status);
 
     @Delete("DELETE a,b,c " +
-            "from orders and " +
+            "from orders a " +
             "LEFT JOIN lineitem b on b.orderid = a.orderid " +
             "LEFT JOIN orderstatus c on c.orderid = a.orderid " +
             "where a.orderid = #{orderid}")

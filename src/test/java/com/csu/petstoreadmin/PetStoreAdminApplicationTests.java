@@ -118,4 +118,9 @@ class PetStoreAdminApplicationTests {
         orderMapper.updateById(order);
     }
 
+    @Test
+    void test10(){
+        orderMapper.deleteOrder(1000);
+    }
+
 }

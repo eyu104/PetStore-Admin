@@ -76,6 +76,12 @@ public class OrderController {
     }
 
 
+    @PostMapping("/delete")
+    public Result<?> delete(@RequestParam int orderId){
+        orderService.deleteOrder(orderId);
+        return Result.success("删除成功");
+    }
+
 
 
 }
