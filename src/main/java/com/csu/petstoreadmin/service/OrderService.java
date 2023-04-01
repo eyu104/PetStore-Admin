@@ -66,5 +66,9 @@ public class OrderService {
         orderMapper.Shipment(orderid,"Q");
     }
 
+    public void deleteOrder(int orderId){
+        orderMapper.deleteOrder(orderId);
+    }
+
 
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -94,6 +95,27 @@ class PetStoreAdminApplicationTests {
         System.out.println(k);
         System.out.println(l);
 
+    }
+
+    @Test
+    void test9() {
+        Date date = new Date();
+        Order order = new Order();
+        order.setOrderId(1000);
+        order.setUserId("hahaha");
+        order.setOrderDate(date);
+        order.setBillAddr1("hhhh");
+        order.setShipCity("biejing");
+        order.setShipState("ll");
+        order.setShipZip("1234");
+        order.setShipCountry("usa");
+        order.setShipAddr1("beijing");
+        order.setBillCity("nn");
+        order.setBillState("lll");
+        order.setBillCountry("UK");
+        order.setCourier("nis");
+
+        orderMapper.updateById(order);
     }
 
 }

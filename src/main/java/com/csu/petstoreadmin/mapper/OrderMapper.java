@@ -3,6 +3,7 @@ package com.csu.petstoreadmin.mapper;
 import com.csu.petstoreadmin.pojo.Order;
 import com.github.yulichang.base.MPJBaseMapper;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -26,6 +27,13 @@ public interface OrderMapper extends MPJBaseMapper<Order> {
 
     @Update("update orderstatus set status = #{status} where orderid = #{orderid}")
     void Shipment(int orderid,String status);
+
+    @Delete("DELETE a,b,c " +
+            "from orders and " +
+            "LEFT JOIN lineitem b on b.orderid = a.orderid " +
+            "LEFT JOIN orderstatus c on c.orderid = a.orderid " +
+            "where a.orderid = #{orderid}")
+    void deleteOrder(int orderid);
 
 
 
