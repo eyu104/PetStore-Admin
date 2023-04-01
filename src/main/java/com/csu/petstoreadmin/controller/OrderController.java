@@ -1,5 +1,6 @@
 package com.csu.petstoreadmin.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.csu.petstoreadmin.common.Result;
 import com.csu.petstoreadmin.pojo.Order;
 import com.csu.petstoreadmin.service.OrderService;
@@ -21,9 +22,35 @@ public class OrderController {
      * @return
      */
     @GetMapping("/get")
-    public Result<?> getOrderBySupplier(@RequestParam int supplierId){
+    public Result<?> getOrderBySupplier(@RequestParam(defaultValue = "1") Integer pageNum,
+                                        @RequestParam(defaultValue = "10") Integer pageSize,
+                                        @RequestParam int supplierId){
         List<Order> list = orderService.getOrderBySupplier(supplierId);
-        return Result.success(list);
+        Page<Order> orderPage = new Page<>(pageNum,pageSize);
+        orderPage.setRecords(list);
+        return Result.success(orderPage);
+    }
+
+    @GetMapping("/search")
+    public Result<?> getOderBySearch(@RequestParam(defaultValue = "1") Integer pageNum,
+                                     @RequestParam(defaultValue = "10") Integer pageSize,
+                                     @RequestParam(defaultValue = "") String search,
+                                     @RequestParam int supplierId){
+        List<Order> list = orderService.getOrderBySupplier(supplierId);
+
+        for (Order o:
+             list) {
+            String ord = Integer.toString(o.getOrderId());
+            if (ord.matches("(.*)"+search+"(.*)")){
+
+            }
+            else {
+                list.remove(o);
+            }
+        }
+        Page<Order> orderPage = new Page<>(pageNum,pageSize);
+        orderPage.setRecords(list);
+        return Result.success(orderPage);
     }
 
     /**

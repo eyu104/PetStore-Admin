@@ -81,4 +81,19 @@ class PetStoreAdminApplicationTests {
         }
     }
 
+    @Test
+    void test7(){
+        String in = "1245";
+        String sea = "124";
+        boolean i = in.matches("(.*)"+sea+"(.*)");
+        boolean j = in.matches(sea+"(.*)");
+        boolean k = in.matches("(.*)"+sea);
+        boolean l = in.matches(sea);
+        System.out.println(i);
+        System.out.println(j);
+        System.out.println(k);
+        System.out.println(l);
+
+    }
+
 }
