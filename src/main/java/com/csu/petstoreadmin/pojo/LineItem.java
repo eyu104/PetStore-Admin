@@ -1,5 +1,6 @@
 package com.csu.petstoreadmin.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -10,18 +11,20 @@ public class LineItem implements Serializable {
     private static final long serialVersionUID = 6804536240033522156L;
 
     private int orderId;
-    private int lineNumber;
+    private int lineNum;
     private int quantity;
     private String itemId;
     private BigDecimal unitPrice;
+    @TableField(exist = false)
     private Item item;
+    @TableField(exist = false)
     private BigDecimal total;
 
     public LineItem() {
     }
 
-    public LineItem(int lineNumber, CartItem cartItem) {
-        this.lineNumber = lineNumber;
+    public LineItem(int lineNum, CartItem cartItem) {
+        this.lineNum = lineNum;
         this.quantity = cartItem.getQuantity();
         this.itemId = cartItem.getItem().getItemId();
         this.unitPrice = cartItem.getItem().getListPrice();
@@ -37,12 +40,12 @@ public class LineItem implements Serializable {
         this.orderId = orderId;
     }
 
-    public int getLineNumber() {
-        return lineNumber;
+    public int getLineNum() {
+        return lineNum;
     }
 
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
     }
 
     public String getItemId() {
@@ -83,7 +86,7 @@ public class LineItem implements Serializable {
         calculateTotal();
     }
 
-    private void calculateTotal() {
+    public void calculateTotal() {
         if (item != null && item.getListPrice() != null) {
             total = item.getListPrice().multiply(new BigDecimal(quantity));
         } else {

@@ -9,7 +9,8 @@ import java.io.Serializable;
 @Data
 @TableName("inventory")
 public class Inventory implements Serializable {
-    @TableId
+    @TableId("itemid")
     private String itemId;
+
     private int qty;
 }

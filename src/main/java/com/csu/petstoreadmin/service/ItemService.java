@@ -9,12 +9,14 @@ import com.csu.petstoreadmin.mapper.ItemMapper;
 import com.csu.petstoreadmin.mapper.ProductMapper;
 import com.csu.petstoreadmin.pojo.Inventory;
 import com.csu.petstoreadmin.pojo.Item;
+import com.csu.petstoreadmin.pojo.LineItem;
 import com.csu.petstoreadmin.pojo.Product;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ItemService {
@@ -32,9 +34,15 @@ public class ItemService {
         Inventory inventory = new Inventory();
         inventory.setItemId(item.getItemId());
         inventory.setQty(item.getQuantity());
-        inventoryMapper.insert(inventory);
-        itemMapper.insert(item);
+        item.setAttr2("");
+        item.setAttr3("");
+        item.setAttr4("");
+        item.setAttr5("");
+
         productMapper.insert(product);
+        itemMapper.insert(item);
+        inventoryMapper.insert(inventory);
+
     }
 
     public void deleteItem(String itemid){
@@ -77,6 +85,20 @@ public class ItemService {
         else {
             return true;
         }
+    }
+
+    public List<LineItem> getLineItemsByOrderidAndSupplier(int orderid,int supplier){
+        List<LineItem> list = itemMapper.getLineItemsByOrderidAndSupplier(orderid,supplier);
+
+        for (LineItem i: list) {
+            Item item = itemMapper.selectById(i);
+            item.setProduct(productMapper.selectById(item));
+            i.setItem(item);
+            i.calculateTotal();
+        }
+
+        return list;
+
     }
 
 

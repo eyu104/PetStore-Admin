@@ -1,5 +1,6 @@
 package com.csu.petstoreadmin.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 public class Item implements Serializable {
 
     private static final long serialVersionUID = -2159121673445254631L;
-    @TableId
+    @TableId(value = "itemid",type = IdType.INPUT)
     private String itemId;
     private String productId;
     private BigDecimal listPrice;

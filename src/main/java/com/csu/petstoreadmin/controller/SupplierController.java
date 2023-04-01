@@ -6,7 +6,8 @@ import com.csu.petstoreadmin.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/supplier")
+@RestController
+@RequestMapping("/supplier")
 public class SupplierController {
     @Autowired
     private SupplierService supplierService;

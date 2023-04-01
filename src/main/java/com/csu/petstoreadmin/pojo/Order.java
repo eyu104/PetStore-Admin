@@ -1,5 +1,6 @@
 package com.csu.petstoreadmin.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -14,16 +15,20 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 6321792448424424931L;
 
     private int orderId;
-    private String username;
+
+    private String userId;
+
     private Date orderDate;
-    private String shipAddress1;
-    private String shipAddress2;
+
+    private String shipAddr1;
+    private String shipAddr2;
     private String shipCity;
     private String shipState;
     private String shipZip;
     private String shipCountry;
-    private String billAddress1;
-    private String billAddress2;
+
+    private String billAddr1;
+    private String billAddr2;
     private String billCity;
     private String billState;
     private String billZip;
@@ -35,10 +40,12 @@ public class Order implements Serializable {
     private String shipToFirstName;
     private String shipToLastName;
     private String creditCard;
-    private String expiryDate;
+    private String exprDate;
     private String cardType;
     private String locale;
+    @TableField(exist = false)
     private String status;
+    @TableField(exist = false)
     private List<LineItem> lineItems = new ArrayList<LineItem>();
 
     public int getOrderId() {
@@ -49,12 +56,12 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Date getOrderDate() {
@@ -68,20 +75,20 @@ public class Order implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public String getShipAddress1() {
-        return shipAddress1;
+    public String getShipAddr1() {
+        return shipAddr1;
     }
 
-    public void setShipAddress1(String shipAddress1) {
-        this.shipAddress1 = shipAddress1;
+    public void setShipAddr1(String shipAddr1) {
+        this.shipAddr1 = shipAddr1;
     }
 
-    public String getShipAddress2() {
-        return shipAddress2;
+    public String getShipAddr2() {
+        return shipAddr2;
     }
 
-    public void setShipAddress2(String shipAddress2) {
-        this.shipAddress2 = shipAddress2;
+    public void setShipAddr2(String shipAddr2) {
+        this.shipAddr2 = shipAddr2;
     }
 
     public String getShipCity() {
@@ -116,20 +123,20 @@ public class Order implements Serializable {
         this.shipCountry = shipCountry;
     }
 
-    public String getBillAddress1() {
-        return billAddress1;
+    public String getBillAddr1() {
+        return billAddr1;
     }
 
-    public void setBillAddress1(String billAddress1) {
-        this.billAddress1 = billAddress1;
+    public void setBillAddr1(String billAddr1) {
+        this.billAddr1 = billAddr1;
     }
 
-    public String getBillAddress2() {
-        return billAddress2;
+    public String getBillAddr2() {
+        return billAddr2;
     }
 
-    public void setBillAddress2(String billAddress2) {
-        this.billAddress2 = billAddress2;
+    public void setBillAddr2(String billAddr2) {
+        this.billAddr2 = billAddr2;
     }
 
     public String getBillCity() {
@@ -220,12 +227,12 @@ public class Order implements Serializable {
         this.creditCard = creditCard;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
+    public String getExprDate() {
+        return exprDate;
     }
 
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setExprDate(String exprDate) {
+        this.exprDate = exprDate;
     }
 
     public String getCardType() {
@@ -262,13 +269,13 @@ public class Order implements Serializable {
 
     public void initOrder(Account account, Cart cart) {
 
-        username = account.getUsername();
+        userId = account.getUsername();
         orderDate = new Date();
 
         shipToFirstName = account.getFirstName();
         shipToLastName = account.getLastName();
-        shipAddress1 = account.getAddress1();
-        shipAddress2 = account.getAddress2();
+        shipAddr1 = account.getAddress1();
+        shipAddr2 = account.getAddress2();
         shipCity = account.getCity();
         shipState = account.getState();
         shipZip = account.getZip();
@@ -276,8 +283,8 @@ public class Order implements Serializable {
 
         billToFirstName = account.getFirstName();
         billToLastName = account.getLastName();
-        billAddress1 = account.getAddress1();
-        billAddress2 = account.getAddress2();
+        billAddr1 = account.getAddress1();
+        billAddr2 = account.getAddress2();
         billCity = account.getCity();
         billState = account.getState();
         billZip = account.getZip();
@@ -286,7 +293,7 @@ public class Order implements Serializable {
         totalPrice = cart.getSubTotal();
 
         creditCard = "999 9999 9999 9999";
-        expiryDate = "12/03";
+        exprDate = "12/03";
         cardType = "Visa";
         courier = "UPS";
         locale = "CA";
@@ -307,5 +314,14 @@ public class Order implements Serializable {
 
     public void addLineItem(LineItem lineItem) {
         lineItems.add(lineItem);
+    }
+
+    public void getTotal(){
+        this.totalPrice = BigDecimal.ZERO;
+        for (LineItem i :
+                this.lineItems) {
+            this.totalPrice.add(i.getTotal());
+        }
+
     }
 }
