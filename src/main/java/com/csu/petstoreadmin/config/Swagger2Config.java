@@ -34,7 +34,7 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("宠物商店接口")
+                .title("宠物商店管理端接口")
                 .description("接口描述")
                 .termsOfServiceUrl("termsOfServiceUrl")
                 .version("1.0")
