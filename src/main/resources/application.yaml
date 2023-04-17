@@ -41,5 +41,12 @@ server:
 
 swagger:
   show: true
-
+#阿里云对象存储配置
+oss:
+  accessId: LTAI5tJeYSKYyWpbj4yszafK
+  accessKey: ouCQpiD9bVqSk5P3We1OnC1QsA4gci
+  endpoint: oss-cn-guangzhou.aliyuncs.com
+  bucket: pstore-eyu104
+  host: https://pstore-eyu104.oss-cn-guangzhou.aliyuncs.com
+  dir: product/
 

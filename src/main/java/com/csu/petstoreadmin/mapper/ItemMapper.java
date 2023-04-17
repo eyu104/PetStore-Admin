@@ -13,7 +13,7 @@ public interface ItemMapper extends MPJBaseMapper<Item> {
 
     @Select("SELECT t.* " +
             "from lineitem t " +
-            "LEFT JOIN item t1 on t1.itemid = t.itemid " +
+            "NATURAL JOIN item t1 on t1.itemid = t.itemid " +
             "WHERE t.orderid = #{orderid} and " +
             "t1.supplier = #{supplier}")
     List<LineItem>  getLineItemsByOrderidAndSupplier(int orderid,int supplier);

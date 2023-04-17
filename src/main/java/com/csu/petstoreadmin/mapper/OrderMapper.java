@@ -30,8 +30,8 @@ public interface OrderMapper extends MPJBaseMapper<Order> {
 
     @Delete("DELETE a,b,c " +
             "from orders a " +
-            "LEFT JOIN lineitem b on b.orderid = a.orderid " +
-            "LEFT JOIN orderstatus c on c.orderid = a.orderid " +
+            "NATURAL JOIN lineitem b on b.orderid = a.orderid " +
+            "NATURAL JOIN orderstatus c on c.orderid = a.orderid " +
             "where a.orderid = #{orderid}")
     void deleteOrder(int orderid);
 
