@@ -1,17 +1,21 @@
 package com.csu.petstoreadmin.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.csu.petstoreadmin.common.Result;
+import com.csu.petstoreadmin.mapper.ItemsMapper;
 import com.csu.petstoreadmin.pojo.*;
+import com.csu.petstoreadmin.pojo.VO.ItemsVO;
 import com.csu.petstoreadmin.service.CategoryService;
 import com.csu.petstoreadmin.service.ItemService;
 import com.csu.petstoreadmin.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +32,8 @@ public class ItemController {
     @Autowired
     private ProductService productService;
 
+    @Resource
+    private ItemsMapper itemsMapper;
     /**
      * 新增商品
      * @param addItemForm
@@ -164,12 +170,27 @@ public class ItemController {
      */
     @GetMapping("/item/get")
     public Result<?> getItems(@RequestParam(defaultValue = "1") Integer pageNum,
-                              @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "") String search,
-                              @RequestParam int supplier){
-        Page<Item> page = itemService.getItems(pageNum,pageSize,search,supplier);
-        System.out.println(page.getRecords());
-        return Result.success(page);
+                @RequestParam(defaultValue = "10") Integer pageSize,
+                @RequestParam(defaultValue = "") String search,
+        @RequestParam int supplier){
+            Page<Item> page = itemService.getItems(pageNum,pageSize,search,supplier);
+            System.out.println(page.getRecords());
+            return Result.success(page);
+    }
+
+    @GetMapping("/items/get")
+    public Result<?> getItems1(@RequestParam(defaultValue = "1") Integer pageNum,
+                               @RequestParam(defaultValue = "10") Integer pageSize,
+                               @RequestParam(defaultValue = "") String search,
+                               @RequestParam int supplier) {
+
+        QueryWrapper<ItemsVO> wrapper = new QueryWrapper<>();
+        String s = "RT";
+        wrapper.like("t1.productid",search)
+                .eq("supplier",supplier);
+        Page<ItemsVO> page = new Page<>(pageNum,pageSize);
+        IPage<ItemsVO> itemsVOIPage = itemsMapper.get(page, supplier,wrapper);
+        return Result.success(itemsVOIPage);
     }
 
 

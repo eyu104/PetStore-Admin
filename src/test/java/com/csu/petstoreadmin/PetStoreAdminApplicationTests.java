@@ -1,11 +1,16 @@
 package com.csu.petstoreadmin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.csu.petstoreadmin.mapper.ItemMapper;
+import com.csu.petstoreadmin.mapper.ItemsMapper;
 import com.csu.petstoreadmin.mapper.OrderMapper;
-import com.csu.petstoreadmin.pojo.Item;
 import com.csu.petstoreadmin.pojo.LineItem;
 import com.csu.petstoreadmin.pojo.Order;
 import com.csu.petstoreadmin.pojo.Supplier;
+import com.csu.petstoreadmin.pojo.VO.ItemsVO;
 import com.csu.petstoreadmin.service.ItemService;
 import com.csu.petstoreadmin.service.OrderService;
 import com.csu.petstoreadmin.service.SupplierService;
@@ -121,6 +126,21 @@ class PetStoreAdminApplicationTests {
     @Test
     void test10(){
         orderMapper.deleteOrder(1000);
+    }
+
+    @Resource
+    ItemsMapper itemsMapper;
+    @Test
+    void test11(){
+        QueryWrapper<ItemsVO> wrapper = new QueryWrapper<>();
+        String s = "RT";
+        wrapper.like("t1.productid",s)
+                .eq("supplier",1);
+        Page<ItemsVO> page = new Page<>(1,5);
+        IPage<ItemsVO> itemsVOIPage = itemsMapper.get(page, 1,wrapper);
+        System.out.println(itemsVOIPage.getRecords());
+
+//        System.out.println(orderMapper.get(1));
     }
 
 }

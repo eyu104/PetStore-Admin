@@ -70,8 +70,10 @@ public class ItemService {
      */
     public Page<Item> getItems(Integer pageNum, Integer pageSize, String search,int supplierId) {
         LambdaQueryWrapper<Item> wrapper = new LambdaQueryWrapper();
-            wrapper.like(Item::getProductId,search)
+        wrapper.like(Item::getProductId,search)
                     .eq(Item::getSupplier,supplierId);
+
+
         Page<Item> itemPage = itemMapper.selectPage(new Page<>(pageNum,pageSize),wrapper);
         System.out.println(itemPage);
         return itemPage;
